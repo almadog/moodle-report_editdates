@@ -69,6 +69,13 @@ foreach ($modinfo->get_sections() as $sectionnum => $section) {
             continue;
         }
 
+        // CATALYST CUSTOM: WR356813
+        // Only include activity types enabled in settings.
+        if (!in_array($cm->modname, explode(',', get_config('report_editdates', 'enabledmods')))) {
+            continue;
+        }
+        // END CATALYST CUSTOM: WR356813
+
         $activitiesdisplayed += 1;
         $activitytypes[$cm->modname] = get_string('modulename', $cm->modname);
     }
