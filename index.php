@@ -95,6 +95,9 @@ if ($mform->is_cancelled()) {
 } else if ($data = $mform->get_data()) {
     // Process submitted data.
 
+    // Start transaction.
+    $transaction = $DB->start_delegated_transaction();
+
     $moddatesettings = array();
     $blockdatesettings = array();
     $sectiondatesettings = array();
@@ -147,11 +150,25 @@ if ($mform->is_cancelled()) {
                     }
                 }
             }
+
+            // CATALYST CUSTOM: WR356813
+            // Update activity name.
+            if (count($cmsettings) == 3 && $cmsettings[0] == 'name') {
+                $modcontext = context_module::instance($cmsettings[2]);
+                // User should be capable of updating individual module.
+                if (has_capability('moodle/course:manageactivities', $modcontext)) {
+                    $cm = $modinfo->get_cm($cmsettings[2]);
+                    $update = new stdClass();
+                    $update->id = $cm->instance;
+                    $update->name = $value;
+                    $update->timemodified = time();
+                    $DB->update_record($cmsettings[1], $update);
+                }
+            }
+            // END CATALYST CUSTOM: WR356813
         }
     }
 
-    // Start transaction.
-    $transaction = $DB->start_delegated_transaction();
     // Allow to update only if user is capable.
     if (has_capability('moodle/course:update', $coursecontext)) {
         $DB->set_field('course', 'startdate', $course->startdate, array('id' => $course->id));

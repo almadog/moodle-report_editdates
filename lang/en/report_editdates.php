@@ -60,4 +60,5 @@ $string['privacy:metadata'] = 'The Dates plugin does not store any personal data
 // CATALYST CUSTOM: WR356813
 $string['enabledmods'] = 'Enabled activity types';
 $string['enabledmodsdesc'] = 'Press and hold Ctrl key and select or deselect activity types that should be enabled in the report.';
+$string['activityname'] = 'Activity name';
 // END CATALYST CUSTOM: WR356813

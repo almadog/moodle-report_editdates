@@ -191,6 +191,14 @@ class report_editdates_form extends moodleform {
                                                                    mt_rand( 0, 255 ) . ', .5)'
                                          );
 
+                    // CATALYST CUSTOM: WR356813
+                    // Add a textbox for editing the activity name.
+                    $elname = 'name_' . $cm->modname . '_' . $cm->id;
+                    $mform->addElement('text', $elname, 'Activity name');
+                    $mform->setType($elname, PARAM_TEXT);
+                    $mform->setDefault($elname, $cm->name);
+                    // END CATALYST CUSTOM: WR356813
+
                     // Call get_settings method for the acitivity/module.
                     // Get instance of the mod's date exractor class.
                     $mod = report_editdates_mod_date_extractor::make($cm->modname, $course);
