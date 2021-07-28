@@ -162,7 +162,7 @@ class report_editdates_form extends moodleform {
 
                     // CATALYST CUSTOM: WR356813
                     // Only include activity types enabled in settings.
-                    if (!in_array($cm->modname, explode(',', get_config('report_editdates', 'enabledmods')))) {
+                    if (!report_editdates_mod_enabled($cm->modname)) {
                         continue;
                     }
                     // END CATALYST CUSTOM: WR356813
