@@ -441,7 +441,7 @@ class report_editdates_form extends moodleform {
                 for ($d = 0; $d <= $days; $d++) { // Create timeline vertical header.
                     $date = usergetdate($first["time"] + ($d * (60 * 60 * 24)));
                     $output .= '<th class="vertical-text"><div><span>' .
-                                    $date['mon'] . '/' . $date['mday'] . '/' . $date['year'] .
+                                    $date['mday'] . '/' . $date['mon'] . '/' . $date['year'] . // CATALYST CUSTOM: WR356813 - Swap day and month around.
                                 '</span></div></th>';
                 }
                 $output .= '</tr><tr>';
