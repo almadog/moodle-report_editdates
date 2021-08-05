@@ -242,8 +242,9 @@ class report_editdates_form extends moodleform {
 
                     if ($coursehasavailability) {
                         if ($cm->availability) {
+                            // CATALYST CUSTOM: WR356813 - Remove date restriction check.
                             // If there are retricted access date settings.
-                            if (strpos($cm->availability, '"type":"date"') !== false) {
+                            // if (strpos($cm->availability, '"type":"date"') !== false) {
                                 $timeline[$cm->id] = array_merge($timeline[$cm->id], array('restrict' => $cm->availability));
                                 $editsettingurl = new moodle_url('/course/modedit.php', array('update' => $cm->id));
                                 $editsettingurltext = html_writer::tag('a',
@@ -254,7 +255,7 @@ class report_editdates_form extends moodleform {
                                 $mform->addElement('static', '',
                                         get_string('hasrestrictedaccess', 'report_editdates', ($cm->name)),
                                                 $editsettingurltext);
-                            }
+                            // }
                         } else {
                             $editsettingurl = new moodle_url('/course/modedit.php', array('update' => $cm->id));
                             $editsettingurltext = html_writer::tag('a',
